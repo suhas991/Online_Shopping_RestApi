@@ -30,15 +30,15 @@ public class ProductController {
 
        @GetMapping("/cart")
        @ResponseStatus(HttpStatus.OK)
-       public Cart GetCartItems(){
+       public List<Product> GetCartItems(){
               return cartService.getCartDetails();
        }
 
-       @GetMapping("/total")
-       @ResponseStatus(HttpStatus.OK)
-       public float totalPrice(){
-              return cartService.getTotal();
-       }
+//       @GetMapping("/total")
+//       @ResponseStatus(HttpStatus.OK)
+//       public float totalPrice(){
+//              return cartService.getTotal();
+//       }
 
        @GetMapping("/{id}")
        @ResponseStatus(HttpStatus.OK)

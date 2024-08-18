@@ -2,6 +2,7 @@ package com.example.online_shopping.service;
 
 import com.example.online_shopping.model.Product;
 import com.example.online_shopping.repository.Cart;
+import com.example.online_shopping.repository.CartJPARepository;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.List;
 public class CartServiceImpli implements CartService{
 
     @Autowired
-    private Cart cartItems;
+    private CartJPARepository cartItems;
 
     @Getter
     int totalItems;
@@ -26,36 +27,39 @@ public class CartServiceImpli implements CartService{
         totalItems=0;
     }
 
-    public Cart getCart(){
-         return cartItems;
-    }
 
     @Override
     public Product addToCart(Product prod) {
-            cartItems.setProduct(prod);
-            cartItems.setTotalValue(cartItems.getTotalValue() + prod.getPrice());
+            cartItems.save(prod);
+//            cartItems.save(cartItems.getTotalValue() + prod.getPrice());
             totalItems++;
             return prod;
     }
 
     @Override
     public List<Product> DisplayCartDetails() {
-        return cartItems.getProduct();
+        return cartItems.findAll();
     }
 
     @Override
-    public Cart getCartDetails() {
-        return cartItems;
+    public List<Product> getCartDetails() {
+        return cartItems.findAll();
     }
 
-    @Override
-    public float getTotal(){
-        return cartItems.getTotalValue();
-    }
+//    @Override
+//    public float getTotal(){
+//        return cartItems.getTotalValue();
+//    }
 
     @Override
     public Product findById(int id){
-        List<Product> all = cartItems.getProduct();
+        List<Product> all = cartItems.findAll();
         return all.stream().filter(t->t.getProductID()==id).findFirst().orElse(null);
     }
+
+    @Override
+    public Product findByName(String productName) {
+           return cartItems.findByproductName(productName);
+    }
+
 }

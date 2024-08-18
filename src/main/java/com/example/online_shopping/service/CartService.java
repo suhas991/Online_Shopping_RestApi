@@ -9,7 +9,8 @@ import java.util.List;
 public interface CartService {
       public Product addToCart(Product prod);
       public List<Product> DisplayCartDetails();
-      public Cart getCartDetails();
-      public float getTotal();
+      public List<Product> getCartDetails();
+      //public float getTotal();
       public Product findById(int id);
+      public Product findByName(String productName);
 }
