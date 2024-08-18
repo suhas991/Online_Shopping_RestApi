@@ -46,5 +46,11 @@ public class ProductController {
               return cartService.findById(id);
        }
 
+       @GetMapping("product/{productName}")
+       @ResponseStatus(HttpStatus.OK)
+       public Product getById(@PathVariable String productName){
+              return cartService.findByName(productName);
+       }
+
 
 }
